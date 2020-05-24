@@ -35,7 +35,6 @@
             // 
             // button1
             // 
-            this.button1.BackgroundImage = global::Derevia.Properties.Resources.bbb;
             this.button1.Location = new System.Drawing.Point(655, 309);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
@@ -62,6 +61,7 @@
             this.ClientSize = new System.Drawing.Size(742, 344);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.button1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form2";
             this.Text = "Справка";
             this.ResumeLayout(false);

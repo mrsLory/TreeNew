@@ -94,9 +94,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="big_5825_oboi_nebesnyj_gradient.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="bbb.jpg" />
   </ItemGroup>
   <ItemGroup>
