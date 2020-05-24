@@ -165,7 +165,7 @@ namespace Derevia
                 textBox1.Text = ((elapsedTime.Elapsed.TotalMilliseconds / 2500).ToString());
             }
             if (fals == 0) { MessageBox.Show("Данное слово отсутсвует в дереве"); }
-            else { MessageBox.Show("Данная слово присутствует в дереве"); }
+            else { MessageBox.Show("Данное слово присутствует в дереве"); }
         }
         private void ЗагрузитьБиблиотекуToolStripMenuItem_Click(object sender, EventArgs e)
         {

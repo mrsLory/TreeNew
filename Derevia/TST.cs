@@ -1,50 +1,27 @@
-﻿using System;
-using System.IO;
-
-
-namespace Derevia
+﻿namespace Derevia
 {
-    class TST
+    internal class TST
     {
-        ClassLeaf cRoot;
-        readonly char chrNull = '\0';
-        readonly bool index = true;
-        bool add = false;
-        bool poisk_chr = false;
+        private ClassLeaf cRoot;
+        private readonly char chrNull = '\0';
+        private readonly bool index = true;
+        private bool add = false;
+        private bool poisk_chr = false;
         public TST()
         {
             cRoot = new ClassLeaf(chrNull);
         }
         public void Insert2(string str)
         {
-
-
-
             Insert2_insert(ref cRoot, str);
-
         }
         public int Search2(string str)
         {
-
             return Search2_search(ref cRoot, str);
-
         }
         public int Delete2(string str)
         {
             return Delete2_delete(ref cRoot, str);
-        }
-
-        public void Sborka2()
-        {
-            string[] massisstrok = new string[0];
-            Sborka(ref cRoot, ref massisstrok, "");
-            using (StreamWriter writer = new StreamWriter("C:\\Немченко\\1.txt"))
-            {
-                foreach (string stroka in massisstrok)
-                {
-                    writer.WriteLine(stroka);
-                }
-            }
         }
         public void Insert2_insert(ref ClassLeaf cLeaf, string strWord)
         {
@@ -73,13 +50,17 @@ namespace Derevia
                         cLeaf.index = index;
                     }
                     if (strWord.Length > 1)
+                    {
                         Insert2_insert(ref cDown, strWord);
+                    }
                 }
             }
             else if (strWord[0] < cLeaf.chr)
             {
                 if (cLeaf.up != null)
+                {
                     Insert2_insert(ref cLeaf.up, strWord);
+                }
                 else
                 {
                     ClassLeaf cUp = new ClassLeaf(strWord[0]);
@@ -90,7 +71,9 @@ namespace Derevia
                         cLeaf.index = index;
                     }
                     if (strWord.Length > 1)
+                    {
                         Insert2_insert(ref cUp, strWord);
+                    }
                 }
             }
             else if (strWord[0] == cLeaf.chr)
@@ -99,7 +82,11 @@ namespace Derevia
                 {
                     if (cLeaf.next != null)
                     {
-                        if (strWord.Length == 1) cLeaf.index = index;
+                        if (strWord.Length == 1)
+                        {
+                            cLeaf.index = index;
+                        }
+
                         Insert2_insert(ref cLeaf.next, strWord.Substring(1));
                     }
                     else
@@ -110,12 +97,13 @@ namespace Derevia
                         Insert2_insert(ref cNext, strWord.Substring(1));
                     }
                 }
-                if (strWord.Length == 1) cLeaf.index = index;
+                if (strWord.Length == 1)
+                {
+                    cLeaf.index = index;
+                }
             }
 
         }
-
-
         public int Search2_search(ref ClassLeaf cLeaf, string strWord)
         {
             if (strWord == "")
@@ -135,7 +123,9 @@ namespace Derevia
             if (strWord[0] > cLeaf.chr)
             {
                 if (cLeaf.down != null)
+                {
                     return Search2_search(ref cLeaf.down, strWord);
+                }
                 else
                 {
                     poisk_chr = false;
@@ -145,7 +135,9 @@ namespace Derevia
             else if (strWord[0] < cLeaf.chr)
             {
                 if (cLeaf.up != null)
+                {
                     return Search2_search(ref cLeaf.up, strWord);
+                }
                 else
                 {
                     poisk_chr = false;
@@ -165,13 +157,16 @@ namespace Derevia
                     return poisk;
                 }
                 else
+                {
                     return Search2_search(ref cLeaf.next, strWord.Substring(1));
+                }
             }
             poisk_chr = false;
             return poisk;
 
         }
-        bool proverka = false;
+
+        private bool proverka = false;
         public int Delete2_delete(ref ClassLeaf cLeaf, string strWord)
         {
 
@@ -240,26 +235,6 @@ namespace Derevia
             proverka = false;
             return delete;
         }
-
-        void Sborka(ref ClassLeaf cLeaf, ref string[] massisstrok, string str_massisstrok)
-        {
-            if (cLeaf.up != null)
-                Sborka(ref cLeaf.up, ref massisstrok, str_massisstrok);
-
-            string strExtendedWord = str_massisstrok + cLeaf.chr.ToString();
-            if (cLeaf.index == true)
-            {
-                Array.Resize<string>(ref massisstrok, massisstrok.Length + 1);
-                massisstrok[massisstrok.Length - 1] = strExtendedWord;
-            }
-            else
-                if (cLeaf.next != null)
-                Sborka(ref cLeaf.next, ref massisstrok, strExtendedWord);
-
-            if (cLeaf.down != null)
-                Sborka(ref cLeaf.down, ref massisstrok, str_massisstrok);
-        }
-
     }
     public class ClassLeaf
     {

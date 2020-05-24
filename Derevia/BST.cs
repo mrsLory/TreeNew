@@ -40,7 +40,7 @@ namespace Derevia
                         }
                     }
 
-                    else
+                    if (String.Compare(i, current.Data) > 0)
                     {
                         current = current.RightChild;
                         if (current == null)
@@ -49,6 +49,7 @@ namespace Derevia
                             break;
                         }
                     }
+                    if (String.Compare(i, current.Data) == 0) { break; }
                 }
             }
         }
@@ -60,6 +61,7 @@ namespace Derevia
             Node4 current = root;
             Node4 parent;
             parent = current;
+            if (current == null) { return 0; }
             while (current.Data != i)
             {
                 if (String.Compare(i, current.Data) < 0) { parent = current; current = current.LeftChild; }
