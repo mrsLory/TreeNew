@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -94,14 +93,9 @@ namespace Derevia
         {
             textBox1.Visible = false;
             label2.Visible = false;
-            Delete bf = new Delete(massivstrok); //создаёт переменную для bloomfilter, который быстро удаляет слова
-            foreach (int index in bf.Contains(richTextBox1.Text, massivstrok)) // если он найдёт слово
-                                                                               // отправляем массив и слово
-            {
-                massivstrok[index] = null; //он его удалит
-            }
-            IEnumerable<string> result = massivstrok.Where(x => !string.IsNullOrWhiteSpace(x));//потом отчистит лист от пустых строк
-            massivstrok = result.ToArray();//и переведёт лист в массив
+            List<string> list = massivstrok.Cast<string>().ToList();//удаление слова из листа и перевод в массив
+            list.Remove(richTextBox1.Text);                //удаление слова из листа и перевод в массив
+            massivstrok = list.ToArray();                  //удаление слова из листа и перевод в массив
             fals = 0;
             fals += pt1.Delete1(richTextBox1.Text);
             fals += pt2.Delete2(richTextBox1.Text);
@@ -434,50 +428,6 @@ namespace Derevia
         private void Button4_Click(object sender, EventArgs e)
         {
             Application.Restart();
-        }
-    }
-
-    internal class Delete //фильтр который можно переименовать, и переменные подправить, может подчистить, 
-                          //я нашёл его как способ быстрого поиска слова
-                          //и он реально очень быстро работает, буквально мгновенно 
-                          //но вообще Фильтр Блума подразумевает один битовый массив под все хеши
-                          //а здесь под каждую строку свой хеш в массиве соответствующего размера исходному массиву строк
-                          /*суть: Для проверки принадлежности элемента e к множеству хранимых элементов необходимо проверить состояние битов h1(e), …, hk(e). 
-                          Если хотя бы один из них равен нулю, элемент не может принадлежать множеству(иначе бы при его добавлении все эти биты были установлены). 
-                          Если все они равны единице, то структура данных сообщает, что е принадлежит множеству.*/
-    {
-        private readonly IList<string> list;
-        private readonly ulong[] del;
-        public Delete(IList<string> list)
-        {
-            this.list = list;
-            del = new ulong[list.Count];
-
-            Parallel.For(0, list.Count, (i) => del[i] = CalcBloom(list[i]));
-        }
-        private ulong CalcBloom(string str)
-        {
-            ulong res = 0;
-            int to = str.Length - 1;
-            for (int i = 0; i < to; i++)
-            {
-                int c = (str[i] + str[i + 1]) % 64;
-                res |= 1ul << c;
-            }
-
-            return res;
-        }
-        public IEnumerable<int> Contains(string str, string[] mas)
-        {
-            ulong hash = CalcBloom(str);
-            int Length = str.Length;//длина слова, она должна быть ровна найденному слову, иначе оно не удалится
-            for (int i = 0; i < del.Length; i++)
-            {
-                if ((del[i] & hash) == hash && list[i].Contains(str) && (Length == mas[i].Length))
-                {
-                    yield return i;
-                }
-            }
         }
     }
 }
