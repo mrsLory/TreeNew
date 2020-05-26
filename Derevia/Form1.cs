@@ -11,10 +11,12 @@ namespace Derevia
 {
     public partial class Form1 : Form
     {
+        
         public static bool StringIsValid(string str)
         {
             return !string.IsNullOrEmpty(str) && !Regex.IsMatch(str, @"[^a-z]");
         }
+
         private bool proverka = false; //проверка добавлять в массив или нет
         private string[] massivstrok = new string[0]; // массив слов
         public void Vstavka(string i)
@@ -73,6 +75,7 @@ namespace Derevia
             Directory.CreateDirectory(filename9); //создаёт папку где будет храниться вывод
             MessageBox.Show("Добро пожаловать в программу, предназначенную для работы с деревьями. Вы можете добавлять, удалять и искать слова, загружать готовые библиотеки и словари, и работать с ними. Если у вас появился вопрос, связанный с работой программы, или вы хотите посмотреть все добавленные слова, вы можете найти на него ответ в 'Справке', кнопка вызова которой находится в правой верхней часте программы. Внимание! Помните, программа может взаимодействовать только со словами, написанными только английскими буквами, без любых знаков и пробелов.");
             InitializeComponent();
+
         }
         private Trie pt1 = new Trie();
         private TST pt2 = new TST();
@@ -259,98 +262,77 @@ namespace Derevia
         }
         private void УдалитьСловоИзБиблиотекиToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Queue q = new Queue();
             string text;
             using (StreamReader sr = new StreamReader(filename1)) //считываем файл в строку
             {
                 text = sr.ReadToEnd();
             }
-            string[] t = text.Split(new char[] { ' ', '\n', '_', '\t', '\r' }, StringSplitOptions.RemoveEmptyEntries); //сплитим ее в массив
-            for (int i = 0; i < t.Length; i++)      //переписываем все в очередь кроме удаляемого элемента
+            List<string> list = (text.Split(new char[] { ' ', '\n', '_', '\t', '\r' }, StringSplitOptions.RemoveEmptyEntries)).Cast<string>().ToList(); //сплитим ее в массив
+            list.Remove(richTextBox1.Text.Replace(" ", ""));
+            using (StreamWriter sw = new StreamWriter(filename1, false))
             {
-                if (!(t[i] == richTextBox1.Text))
+                foreach (string stroka in list)
                 {
-                    q.Enqueue(t[i]);
+                    sw.WriteLine(stroka);
                 }
-            }
-            using (StreamWriter sw = new StreamWriter(filename1, false)) //чистим очередь перезаписываем в файл
-            {
-                while (q.Count != 0)
-                {
-                    sw.WriteLine(q.Dequeue());
-                }
+
             }
         }
         private void УдалитьСловоИзБиблиотекеToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Queue q = new Queue();
+            
             string text;
             using (StreamReader sr = new StreamReader(filename3)) //считываем файл в строку
             {
                 text = sr.ReadToEnd();
             }
-            string[] t = text.Split(new char[] { ' ', '\n', '_', '\t', '\r' }, StringSplitOptions.RemoveEmptyEntries); //сплитим ее в массив
-            for (int i = 0; i < t.Length; i++)      //переписываем все в очередь кроме удаляемого элемента
+            List<string> list = (text.Split(new char[] { ' ', '\n', '_', '\t', '\r' }, StringSplitOptions.RemoveEmptyEntries)).Cast<string>().ToList(); //сплитим ее в массив
+            list.Remove(richTextBox1.Text.Replace(" ", ""));
+            using (StreamWriter sw = new StreamWriter(filename3, false))
             {
-                if (!(t[i] == richTextBox1.Text))
+                foreach (string stroka in list)
                 {
-                    q.Enqueue(t[i]);
+                    sw.WriteLine(stroka);
                 }
-            }
-            using (StreamWriter sw = new StreamWriter(filename3, false)) //чистим очередь перезаписываем в файл
-            {
-                while (q.Count != 0)
-                {
-                    sw.WriteLine(q.Dequeue());
-                }
+
             }
         }
         private void УдалитьСловоИзБиблиотекиToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Queue q = new Queue();
+           
             string text;
             using (StreamReader sr = new StreamReader(filename2)) //считываем файл в строку
             {
                 text = sr.ReadToEnd();
             }
-            string[] t = text.Split(new char[] { ' ', '\n', '_', '\t', '\r' }, StringSplitOptions.RemoveEmptyEntries); //сплитим ее в массив
-            for (int i = 0; i < t.Length; i++)      //переписываем все в очередь кроме удаляемого элемента
+            List<string> list = (text.Split(new char[] { ' ', '\n', '_', '\t', '\r' }, StringSplitOptions.RemoveEmptyEntries)).Cast<string>().ToList(); //сплитим ее в массив
+            list.Remove(richTextBox1.Text.Replace(" ", ""));
+            using (StreamWriter sw = new StreamWriter(filename2, false))
             {
-                if (!(t[i] == richTextBox1.Text))
+                foreach (string stroka in list)
                 {
-                    q.Enqueue(t[i]);
+                    sw.WriteLine(stroka);
                 }
-            }
-            using (StreamWriter sw = new StreamWriter(filename2, false)) //чистим очередь перезаписываем в файл
-            {
-                while (q.Count != 0)
-                {
-                    sw.WriteLine(q.Dequeue());
-                }
+                
             }
         }
         private void УдалитьСловоИзБиблиотекиToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            Queue q = new Queue();
+          
             string text;
             using (StreamReader sr = new StreamReader(filename4)) //считываем файл в строку
             {
                 text = sr.ReadToEnd();
             }
-            string[] t = text.Split(new char[] { ' ', '\n', '_', '\t', '\r' }, StringSplitOptions.RemoveEmptyEntries); //сплитим ее в массив
-            for (int i = 0; i < t.Length; i++)      //переписываем все в очередь кроме удаляемого элемента
+            List<string> list = (text.Split(new char[] { ' ', '\n', '_', '\t', '\r' }, StringSplitOptions.RemoveEmptyEntries)).Cast<string>().ToList(); //сплитим ее в массив
+            list.Remove(richTextBox1.Text.Replace(" ", ""));
+            using (StreamWriter sw = new StreamWriter(filename4, false))
             {
-                if (!(t[i] == richTextBox1.Text))
+                foreach (string stroka in list)
                 {
-                    q.Enqueue(t[i]);
+                    sw.WriteLine(stroka);
                 }
-            }
-            using (StreamWriter sw = new StreamWriter(filename4, false)) //чистим очередь перезаписываем в файл
-            {
-                while (q.Count != 0)
-                {
-                    sw.WriteLine(q.Dequeue());
-                }
+
             }
         }
         private void ПитонToolStripMenuItem_Click(object sender, EventArgs e)
