@@ -371,6 +371,7 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(216, 164);
             this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 8;
             this.textBox1.Visible = false;
@@ -425,6 +426,7 @@
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Поиск в дереве";

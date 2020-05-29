@@ -96,16 +96,24 @@ namespace Derevia
         {
             textBox1.Visible = false;
             label2.Visible = false;
-            List<string> list = massivstrok.Cast<string>().ToList();//удаление слова из листа и перевод в массив
-            list.Remove(richTextBox1.Text);                //удаление слова из листа и перевод в массив
-            massivstrok = list.ToArray();                  //удаление слова из листа и перевод в массив
-            fals = 0;
-            fals += pt1.Delete1(richTextBox1.Text);
-            fals += pt2.Delete2(richTextBox1.Text);
-            fals += pt3.Delete3(richTextBox1.Text);
-            fals += pt4.Delete4(richTextBox1.Text);
-            if (fals == 0) { MessageBox.Show("Данное слово отсутствует в дереве"); }
-            else { MessageBox.Show("Данное слово успешно удалено"); }
+            if (StringIsValid(richTextBox1.Text.ToLower()))
+            {
+                List<string> list = massivstrok.Cast<string>().ToList();//удаление слова из листа и перевод в массив
+                list.Remove(richTextBox1.Text);                //удаление слова из листа и перевод в массив
+                massivstrok = list.ToArray();                  //удаление слова из листа и перевод в массив
+                fals = 0;
+                fals += pt1.Delete1(richTextBox1.Text);
+                fals += pt2.Delete2(richTextBox1.Text);
+                fals += pt3.Delete3(richTextBox1.Text);
+                fals += pt4.Delete4(richTextBox1.Text);
+                if (fals == 0) { MessageBox.Show("Данное слово отсутствует в дереве"); }
+                else { MessageBox.Show("Данное слово успешно удалено"); }
+            }
+            else
+            {
+                MessageBox.Show("Вводимая строка должна содержать только буквы латинского алфавита");
+            }
+
         }
         private void Button3_Click(object sender, EventArgs e)
         {
